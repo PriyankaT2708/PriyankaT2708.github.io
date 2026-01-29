@@ -1,54 +1,61 @@
-const modal = document.getElementById("modal");
-const modalTitle = document.getElementById("modalTitle");
-const modalBody = document.getElementById("modalBody");
-const modalLink = document.getElementById("modalLink");
-
-document.getElementById("year").textContent = new Date().getFullYear();
-
-const projects = {
-  p1: {
-    title: "Dynamic Adaptation of LLMs for IT Ticket Resolution",
-    body:
-      "Built a multi-metric evaluation framework (lexical + semantic + human) to benchmark LLM answers on real IT questions. Improved semantic alignment and response quality using modern NLP tooling.",
-    link: "https://github.com/yourusername/your-repo"
-  },
-  p2: {
-    title: "EUC Asset Management (Spring Boot APIs)",
-    body:
-      "Designed and enhanced REST APIs (Spring Boot, JPA) for onboarding/offboarding flows, integrated testing via Postman, and improved operational efficiency with automation-ready endpoints.",
-    link: "https://github.com/yourusername/your-repo"
-  },
-  p3: {
-    title: "AIOps Monitoring Integrations",
-    body:
-      "Integrated monitoring/ITSM workflows and alerts across tooling, improving reliability and reducing manual touch points via automation and structured data pipelines.",
-    link: "https://github.com/yourusername/your-repo"
-  }
-};
-
-document.querySelectorAll("[data-modal]").forEach((card) => {
-  card.addEventListener("click", () => {
-    const key = card.getAttribute("data-modal");
-    const data = projects[key];
-    if (!data) return;
-
-    modalTitle.textContent = data.title;
-    modalBody.textContent = data.body;
-    modalLink.href = data.link;
-
-    modal.showModal();
-  });
-});
-
-modal.querySelector(".close").addEventListener("click", () => modal.close());
-modal.addEventListener("click", (e) => {
-  // click outside content closes
-  const rect = modal.getBoundingClientRect();
-  const inDialog =
-    rect.top <= e.clientY &&
-    e.clientY <= rect.top + rect.height &&
-    rect.left <= e.clientX &&
-    e.clientX <= rect.left + rect.width;
-
-  if (!inDialog) modal.close();
-});
+:root{
+  --bg:#0b0f19; --panel:#121a2a; --text:#e6e9f2; --muted:#aab2c5;
+  --line:rgba(255,255,255,.08); --shadow:0 18px 60px rgba(0,0,0,.45);
+  --accent:#6ee7ff; --accent2:#a78bfa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  background: radial-gradient(1200px 500px at 20% -10%, rgba(110,231,255,.15), transparent 55%),
+              radial-gradient(900px 450px at 85% 10%, rgba(167,139,250,.12), transparent 50%),
+              var(--bg);
+  color:var(--text);
+}
+.header{position:sticky; top:0; z-index:10; backdrop-filter: blur(10px);
+  background: rgba(11,15,25,.55); border-bottom:1px solid var(--line);}
+.nav{max-width:1050px; margin:0 auto; padding:14px 18px; display:flex; justify-content:space-between; align-items:center;}
+.brand{color:var(--text); text-decoration:none; font-weight:800}
+.links a{color:var(--muted); text-decoration:none; margin-left:16px; font-weight:700}
+.links a:hover{color:var(--text)}
+.container{max-width:1050px; margin:0 auto; padding:28px 18px 60px}
+.hero{padding:38px 0 12px}
+.kicker{color:var(--muted); margin:0 0 8px}
+h1{font-size: clamp(40px, 6vw, 68px); margin:0 0 10px; line-height:1.02}
+.subtitle{margin:0 0 18px; color:var(--muted); font-weight:650}
+.hero-actions{display:flex; gap:10px; flex-wrap:wrap}
+.btn{display:inline-flex; align-items:center; justify-content:center; padding:10px 14px;
+  border-radius:12px; border:1px solid var(--line); color:var(--text); text-decoration:none;
+  background: rgba(255,255,255,.03);}
+.btn:hover{border-color: rgba(255,255,255,.16)}
+.btn.primary{border-color:transparent; background: linear-gradient(90deg, rgba(110,231,255,.85), rgba(167,139,250,.85));
+  color:#050612; font-weight:900;}
+.section{padding:34px 0}
+.section-title h3{margin:6px 0 10px; font-size:28px}
+.grid{display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; margin-top:14px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.card{background: rgba(18,26,42,.72); border:1px solid var(--line); border-radius:18px; padding:14px; box-shadow: var(--shadow);}
+.thumb{height:140px; border-radius:14px; border:1px dashed rgba(255,255,255,.18);
+  display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,.45); margin-bottom:12px;}
+.card h4{margin:0 0 6px}
+.meta{margin:0 0 10px; color:var(--muted); font-size:14px}
+.link{background:none; border:none; color: var(--accent); font-weight:900; cursor:pointer; padding:0}
+.timeline{display:grid; gap:12px; margin-top:12px}
+.item{background: rgba(18,26,42,.55); border:1px solid var(--line); border-radius:16px; padding:14px;}
+.stats{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:16px}
+@media (max-width:700px){.stats{grid-template-columns:1fr}}
+.stat{background: rgba(18,26,42,.55); border:1px solid var(--line); border-radius:16px; padding:14px; text-align:center}
+.num{display:block; font-size:28px; font-weight:950}
+.label{display:block; color:var(--muted)}
+.about{color:var(--muted); max-width:72ch; line-height:1.7}
+.contact{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+.contact-pill{padding:10px 12px; border-radius:999px; border:1px solid var(--line);
+  text-decoration:none; color:var(--text); background: rgba(255,255,255,.03);}
+.footer{margin-top:18px; color:var(--muted); border-top:1px solid var(--line); padding-top:14px}
+.modal{width:min(720px, 92vw); border:none; border-radius:18px; padding:18px 16px 16px;
+  background: rgba(18,26,42,.92); color: var(--text); box-shadow: var(--shadow);}
+.modal::backdrop{background: rgba(0,0,0,.6)}
+.close{position:absolute; right:12px; top:10px; border:none; background: rgba(255,255,255,.06);
+  color: var(--text); border-radius:12px; padding:8px 10px; cursor:pointer;}
+.modal-body{color:var(--muted); line-height:1.7}
